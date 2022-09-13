@@ -1,8 +1,8 @@
 /*
 
-Program: DivisibleBy3.java          Last Date of this Revision: September 12, 2022
+Program: DivisibleBy3.java          Last Date of this Revision: September 13, 2022
 
-Purpose: 
+Purpose: check whether a  number is divisible by 3 or not
 
 Author: Chloe Denton 
 School: CHHS
@@ -30,6 +30,8 @@ public class DivisibleBy3 extends JFrame {
 	private JPanel contentPane;
 	static JTextField userResponse;
 	public JButton checkBtn;
+	public int promptRes;
+	public JLabel compRes;
 
 	/**
 	 * Launch the application.
@@ -67,29 +69,30 @@ public class DivisibleBy3 extends JFrame {
 		contentPane.add(pomptUser);
 		
 		
-		// collects and stores users response
+		// collects users response
 		userResponse = new JTextField();
 		userResponse.setBounds(217, 69, 115, 20);
 		contentPane.add(userResponse);
 		userResponse.setColumns(10);
+	
 		
-		String userRes = userResponse.getText();
-		int promptRes = Integer.valueOf(userRes);
-		
-		
-		// runs users response through checking code 
+		// stores and runs users response through checking code 
 		checkBtn = new JButton("Check");
 		checkBtn.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				
+				String userRes = userResponse.getText();
+				promptRes = Integer.parseInt(userRes);
+				
+				checkNum();
 			}
 		});
 		checkBtn.setBounds(175, 99, 89, 23);
 		contentPane.add(checkBtn);
 		
 		
-		// prints results 
-		JLabel compRes = new JLabel(" ");
+		// prints results from checking code
+		compRes = new JLabel(" ");
 		compRes.setFont(new Font("Tahoma", Font.PLAIN, 15));
 		compRes.setHorizontalAlignment(SwingConstants.CENTER);
 		compRes.setBounds(90, 133, 242, 32);
@@ -98,8 +101,15 @@ public class DivisibleBy3 extends JFrame {
 		
 	}
 	
+	// code used to check users response and determine results
 	public void checkNum() {
+		int checkNum = promptRes % 3;
 		
+		if (checkNum == 1) {
+			compRes.setText("Number is no divisble by 3");
+		} else {
+			compRes.setText("Number is divisble by 3");
+		}
 	}
 }
 
