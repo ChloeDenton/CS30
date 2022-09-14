@@ -1,6 +1,6 @@
 /*
 
-Program: MetricConversion.java          Last Date of this Revision: September 13, 2022
+Program: MetricConversion.java          Last Date of this Revision: September 14, 2022
 
 Purpose: show the formulas for a type of conversion the user selects
 
@@ -12,6 +12,8 @@ Course: Computer Programming 30
 */
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JMenuItem;
@@ -19,13 +21,11 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
-public class MetricConversion {
+public class MetricConversion implements ActionListener {
 
 	private JFrame frame;
-	public JComboBox conTypes;
-	
-	// JComboBox conTypes = (JComboBox)event.getSource();
-	String itemName = (String)conTypes.getSelectedItem();
+	JComboBox conTypes;
+	JLabel compRes;
 
 	/**
 	 * Launch the application.
@@ -59,27 +59,45 @@ public class MetricConversion {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		String[] conversions = {"inches to centimeters", "feet to meters", 
+		String[] conString = {"inches to centimeters", "feet to meters", 
 				"gallons to liters", "pounds to kilograms"};
-		
-		conTypes = new JComboBox(conversions);
-		conTypes.setBounds(128, 71, 186, 34);
-		frame.getContentPane().add(conTypes);
-		conTypes.setSelectedIndex(0);
-		// conTypes.addActionListener(this);
 		
 		JLabel promptUser = new JLabel("Select a conversion type:");
 		promptUser.setHorizontalAlignment(SwingConstants.CENTER);
 		promptUser.setBounds(128, 36, 186, 25);
 		frame.getContentPane().add(promptUser);
 		
-		JLabel compRes = new JLabel("");
+		compRes = new JLabel("1 inch = 2.54 centimeters");
 		compRes.setHorizontalAlignment(SwingConstants.CENTER);
 		compRes.setBounds(128, 131, 186, 25);
 		frame.getContentPane().add(compRes);
 		
-		if (conTypes == "inches to centimeters") {
+		conTypes = new JComboBox(conString);
+		conTypes.setBounds(128, 72, 186, 35);
+		frame.getContentPane().add(conTypes);
+		conTypes.setSelectedIndex(0);
+		conTypes.addActionListener(this);
+		 
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent event) {
+		
+		JComboBox comboBox = (JComboBox)event.getSource();
+		String conString = (String)comboBox.getSelectedItem();
+		
+		if (conString == "inches to centimeters") {
+			compRes.setText("1 inch = 2.54 centimeters");
 			
+		} else if (conString == "feet to meters") {
+			compRes.setText("1 foot = 0.3048 meters");
+			
+		} else if (conString == "gallons to liters") {
+			compRes.setText("1 gallon = 4.5461 liters");
+			
+		} else if (conString == "pounds to kilograms") {
+			compRes.setText("1 pound = 0.4536 kilograms");
 		}
 		
 	}
